@@ -960,8 +960,16 @@ app.get('/manifest.json', (req, res) => {
 });
 
 // Serve stream at /stream/:type/:id.json
-app.get('/stream/:type/:id.json', (req, res) => {
-    stremioInterface.get(req, res);
+
+app.get('/stream/:type/:id.json', async (req, res) => {
+    try {
+        const { type, id } = req.params;
+        const result = await builder.getStream({ type, id });
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(result));
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 module.exports = (req, res) => app(req, res);
