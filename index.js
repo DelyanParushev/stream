@@ -1,15 +1,15 @@
 const express = require('express');
-const app = express();
 const { addonBuilder } = require('stremio-addon-sdk');
 const TorrentScraper = require('./torrent-scraper');
 const OMDBClient = require('./omdb-client');
 const config = require('./config');
 
+const app = express();
+
 // Health check and browser-friendly routes
 app.get('/', (req, res) => {
     res.send('Welcome to Stream!');
 });
-
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Initialize scraper, clients
@@ -246,6 +246,24 @@ builder.defineStreamHandler(async ({ type, id }) => {
     } catch (error) {
         console.error('Stream handler error:', error);
         return { streams: [] };
+    }
+});
+
+// Serve manifest at /manifest.json
+app.get('/manifest.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(manifest));
+});
+
+// Serve stream at /stream/:type/:id.json
+app.get('/stream/:type/:id.json', async (req, res) => {
+    try {
+        const { type, id } = req.params;
+        const result = await builder.getStream({ type, id });
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(result));
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
