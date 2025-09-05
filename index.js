@@ -943,11 +943,19 @@ ${torrent.quality}`;
 
 
 
-const app = express();
 
+const app = express();
 const stremioInterface = builder.getInterface();
-app.use(express.json());
-app.all('*', (req, res) => {
+
+// Serve manifest at /manifest.json
+app.get('/manifest.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(manifest));
+});
+
+// Serve stream at /stream/:type/:id.json
+app.get('/stream/:type/:id.json', (req, res) => {
     stremioInterface.get(req, res);
 });
+
 module.exports = (req, res) => app(req, res);
