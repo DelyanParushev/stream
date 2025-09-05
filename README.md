@@ -1,15 +1,4 @@
-# Stremio 1337x Magnet Addon
-
-A Stremio addon that scrapes torrent magnet links from 1337x.to and provides them directly to Stremio for streaming.
-
-## Features
-
-- 🔍 Searches 1337x.to for movies and TV shows
-- 🧲 Provides magnet links directly to Stremio
-- 📺 Works with Stremio on all platforms
-- ⚡ Fast and reliable magnet link generation
-- 🎯 Quality-based sorting (2160p, 1080p, 720p, etc.)
-- 🆓 No external accounts or API keys required
+# stream Addon
 
 ## Prerequisites
 
@@ -153,5 +142,6 @@ If you encounter issues:
 Feel free to submit issues and enhancement requests!
 
 ## License
+
 
 ISC License - Use at your own risk and responsibility.
