@@ -939,6 +939,15 @@ ${torrent.quality}`;
 }
 
 // Vercel serverless export
+
+
+
+
 const app = express();
-app.use(builder.getInterface());
+
+const stremioInterface = builder.getInterface();
+app.use(express.json());
+app.all('*', (req, res) => {
+    stremioInterface.get(req, res);
+});
 module.exports = (req, res) => app(req, res);
