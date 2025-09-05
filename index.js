@@ -265,9 +265,14 @@ app.get('/manifest.json', (req, res) => {
 app.get('/stream/:type/:id.json', async (req, res) => {
     try {
         const { type, id } = req.params;
-        const result = await builder.getStream({ type, id });
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(result));
+        const handler = builder._streamHandler;
+        if (handler) {
+            const result = await handler({ type, id });
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result));
+        } else {
+            res.status(500).json({ error: 'No stream handler defined' });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
