@@ -937,22 +937,5 @@ ${torrent.quality}`;
     }
 }
 
-// Start the addon
-const port = process.env.PORT || 3000;
-
-console.log('Starting 1337x Magnet Stremio Addon...');
-console.log(`Will be available at: http://localhost:${port}/manifest.json`);
-console.log('The addon will:');
-console.log('  1. Search 1337x.to for torrents based on movie/show names');
-console.log('  2. Provide magnet links directly to Stremio');
-console.log('  3. Support direct torrent streaming through compatible players');
-console.log('No external accounts or API keys required - just pure magnet links!');
-
-serveHTTP(builder.getInterface(), { port }).then(() => {
-    console.log('Server started successfully!');
-    console.log(`Addon accessible at: http://localhost:${port}/manifest.json`);
-    console.log('Ready to serve magnet links from 1337x.to!');
-}).catch((error) => {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-});
+// Vercel serverless export
+module.exports = builder.getInterface();
