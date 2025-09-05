@@ -1,14 +1,17 @@
+
+const express = require('express');
+const app = express();
+const { addonBuilder } = require('stremio-addon-sdk');
+const TorrentScraper = require('./torrent-scraper');
+const OMDBClient = require('./omdb-client');
+const config = require('./config');
+
 // Health check and browser-friendly routes
 app.get('/', (req, res) => {
     res.send('Welcome to Stream!');
 });
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-const express = require('express');
-const { addonBuilder } = require('stremio-addon-sdk');
-const TorrentScraper = require('./torrent-scraper');
-const OMDBClient = require('./omdb-client');
-const config = require('./config');
 
 // Initialize scraper, clients
 const scraper = new TorrentScraper();
@@ -950,26 +953,4 @@ ${torrent.quality}`;
 
 
 
-const app = express();
-const stremioInterface = builder.getInterface();
-
-// Serve manifest at /manifest.json
-app.get('/manifest.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(manifest));
-});
-
-// Serve stream at /stream/:type/:id.json
-
-app.get('/stream/:type/:id.json', async (req, res) => {
-    try {
-        const { type, id } = req.params;
-        const result = await builder.getStream({ type, id });
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(result));
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-module.exports = (req, res) => app(req, res);
+// ...existing code...
