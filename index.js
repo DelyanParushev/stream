@@ -58,6 +58,7 @@ streamHandler = async ({ type, id }) => {
 
         // Extract info from ID
         const parseResult = await parseStreamId(id);
+        console.log('Parsed stream ID:', parseResult);
         const { searchQuery, year, season, episode, searchVariations, isWWE, isTV } = parseResult;
         
         if (!searchQuery) {
