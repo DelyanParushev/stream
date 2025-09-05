@@ -938,4 +938,6 @@ ${torrent.quality}`;
 }
 
 // Vercel serverless export
-exports.default = builder.getInterface();
+const handler = builder.getInterface();
+module.exports = handler;
+exports.default = handler;
