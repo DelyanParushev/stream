@@ -1,3 +1,9 @@
+// Health check and browser-friendly routes
+app.get('/', (req, res) => {
+    res.send('Welcome to Stream!');
+});
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 const express = require('express');
 const { addonBuilder } = require('stremio-addon-sdk');
 const TorrentScraper = require('./torrent-scraper');
