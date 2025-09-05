@@ -40,8 +40,9 @@ const manifest = {
 
 const builder = new addonBuilder(manifest);
 
-// Stream handler
-builder.defineStreamHandler(async ({ type, id }) => {
+// Store stream handler reference
+let streamHandler;
+streamHandler = async ({ type, id }) => {
     try {
         console.log(`Stream request - Type: ${type}, ID: ${id}`);
         
@@ -253,7 +254,8 @@ builder.defineStreamHandler(async ({ type, id }) => {
         console.error('Stream handler error:', error);
         return { streams: [] };
     }
-});
+};
+builder.defineStreamHandler(streamHandler);
 
 // Serve manifest at /manifest.json
 app.get('/manifest.json', (req, res) => {
@@ -265,9 +267,8 @@ app.get('/manifest.json', (req, res) => {
 app.get('/stream/:type/:id.json', async (req, res) => {
     try {
         const { type, id } = req.params;
-        const handler = builder._streamHandler;
-        if (handler) {
-            const result = await handler({ type, id });
+        if (streamHandler) {
+            const result = await streamHandler({ type, id });
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(result));
         } else {
