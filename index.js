@@ -938,4 +938,6 @@ ${torrent.quality}`;
 }
 
 // Vercel serverless export
-module.exports = builder.getInterface();
+module.exports = (req, res) => {
+    return builder.getInterface()(req, res);
+};
