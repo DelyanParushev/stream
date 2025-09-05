@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const { addonBuilder } = require('stremio-addon-sdk');
@@ -948,9 +947,4 @@ ${torrent.quality}`;
 }
 
 // Vercel serverless export
-
-
-
-
-
-// ...existing code...
+module.exports = (req, res) => app(req, res);
