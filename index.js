@@ -1,4 +1,5 @@
-const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
+const express = require('express');
+const { addonBuilder } = require('stremio-addon-sdk');
 const TorrentScraper = require('./torrent-scraper');
 const OMDBClient = require('./omdb-client');
 const config = require('./config');
@@ -938,6 +939,6 @@ ${torrent.quality}`;
 }
 
 // Vercel serverless export
-const handler = builder.getInterface();
-module.exports = handler;
-exports.default = handler;
+const app = express();
+app.use(builder.getInterface());
+module.exports = app;
