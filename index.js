@@ -6,6 +6,12 @@ const config = require('./config');
 
 const app = express();
 
+// CORS middleware for Stremio compatibility
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 // Health check and browser-friendly routes
 app.get('/', (req, res) => {
     res.send('Welcome to Stream!');
@@ -573,7 +579,7 @@ function parseWWEContent(input) {
             const yearMatch = input.match(/20\d{2}/);
             const year = yearMatch ? yearMatch[0] : new Date().getFullYear().toString();
             
-            // Create search query
+            // Create search Query
             let searchQuery = pattern.name;
             if (year) {
                 searchQuery += ` ${year}`;
