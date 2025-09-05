@@ -1,0 +1,31 @@
+{
+  "name": "stremio-1337x-magnet-addon",
+  "version": "1.0.0",
+  "description": "Stremio addon that scrapes 1337x.to and provides magnet links directly",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js",
+    "test:scraper": "node test.js scraper",
+    "test:config": "node test.js config",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "stremio",
+    "addon",
+    "magnet",
+    "torrent",
+    "1337x"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "express": "^5.1.0",
+    "node-fetch": "^2.7.0",
+    "stremio-addon-sdk": "^1.6.10"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
