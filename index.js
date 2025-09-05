@@ -941,4 +941,4 @@ ${torrent.quality}`;
 // Vercel serverless export
 const app = express();
 app.use(builder.getInterface());
-module.exports = app;
+module.exports = (req, res) => app(req, res);
